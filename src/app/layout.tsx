@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ModeToggle } from '@/components/mode-toggle'
-import { ThemeProvider } from '@/components/theme-provider'
 import { cn } from '@/lib/utils'
+import { Providers } from './provider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,24 +18,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(
-        'h-full',
-        'antialiased',
-        'font-sans',
-      )}
+      className={cn('h-full', 'antialiased', 'font-sans')}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <div>
             <ModeToggle />
           </div>
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
