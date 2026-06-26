@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { ModeToggle } from '@/components/mode-toggle'
 import { cn } from '@/lib/utils'
+import { Header } from './global/header'
 import { Providers } from './provider'
 
 export const metadata: Metadata = {
@@ -22,9 +22,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <div>
-            <ModeToggle />
-          </div>
+          <Header />
           {children}
         </Providers>
       </body>

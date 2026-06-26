@@ -39,7 +39,8 @@
         "useImportType": "off"
 			},
 			"suspicious": {
-				"noEmptyBlock": "off"
+				"noEmptyBlock": "off",
+				"noUnknownAtRules": "off"
 			},
 			"correctness": {
 				"noUnusedVariables": "off",
