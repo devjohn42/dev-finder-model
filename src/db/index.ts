@@ -1,13 +1,25 @@
-// Make sure to install the 'postgres' package
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 import * as schema from './schema'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL must be configured.')
+declare global {
+	// eslint-disable-next-line no-var -- only var works here
+	var db: PostgresJsDatabase<typeof schema> | undefined
 }
+let db: PostgresJsDatabase<typeof schema>
 
-const queryClient = postgres(process.env.DATABASE_URL);
-const db = drizzle({ client: queryClient, schema, casing: 'snake_case' });
+if (process.env.NODE_ENV === 'production') {
+	db = drizzle(postgres(process.env.DATABASE_URL!), { schema, casing: 'snake_case' })
+} else {
+	if (!global.db) {
+		global.db = drizzle(postgres(process.env.DATABASE_URL!), {
+			schema,
+			casing: 'snake_case'
+		})
+	}
+
+	db = global.db
+}
 
 export { db }
