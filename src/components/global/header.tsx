@@ -21,8 +21,8 @@ function AccountDropDown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<Button>
-					<Avatar className="mr-2">
+				<Button variant={'ghost'}>
+					<Avatar className="mr-2 h-7 w-7">
 						<AvatarImage src={session.data?.user.image ?? ''} />
 						<AvatarFallback>JV</AvatarFallback>
 					</Avatar>
@@ -52,7 +52,9 @@ export function Header() {
 	return (
 		<header className="border-b bg-background px-4 py-4">
 			<div className="flex items-center justify-between">
-				<Link href="/">Dev Finder Model</Link>
+				<Button variant={'ghost'} className="cursor-pointer">
+					<Link href="/">Dev Finder Model</Link>
+				</Button>
 				<div className="flex items-center gap-4">
 					<AccountDropDown />
 					<ModeToggle />
@@ -61,5 +63,3 @@ export function Header() {
 		</header>
 	)
 }
-
-//1:16:02

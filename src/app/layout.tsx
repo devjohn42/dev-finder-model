@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import NextTopLoader from 'nextjs-toploader'
 import { cn } from '@/lib/utils'
 import { Header } from '../components/global/header'
 import { Providers } from './provider'
@@ -25,6 +26,7 @@ export default function RootLayout({
 		>
 			<body className={inter.className}>
 				<Providers>
+					<NextTopLoader />
 					<Header />
 					{children}
 				</Providers>
