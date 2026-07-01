@@ -27,30 +27,15 @@ export const authConfig = {
 		})
 	],
 	callbacks: {
-		async jwt({ token, session }) {
-			const dbUser = await db.query.users.findFirst({
-				where: (users, { eq }) => eq(users.email, token.email!)
-			})
-
-			if (!dbUser) {
-				throw new Error('no user with email found')
+		async jwt({ token, user }) {
+			if (user) {
+				token.id = user.id
 			}
-
-			return {
-				id: dbUser.id,
-				name: dbUser.name,
-				email: dbUser.email,
-				picture: dbUser.image
-			}
+			return token
 		},
 		async session({ token, session }) {
-			if (token) {
-				session.user = {
-					id: token.id as string,
-					name: token.name,
-					email: token.email,
-					image: token.picture
-				}
+			if (session.user) {
+				session.user.id = token.id as string
 			}
 
 			return session

@@ -4,8 +4,9 @@ import { LogIn, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { ModeToggle } from '@/components/mode-toggle'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -22,10 +23,16 @@ function AccountDropDown() {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<Button variant={'ghost'}>
-					<Avatar className="mr-2 h-7 w-7">
-						<AvatarImage src={session.data?.user.image ?? ''} />
-						<AvatarFallback>JV</AvatarFallback>
-					</Avatar>
+					{isLoggedIn ? (
+						<Avatar className="mr-2 h-7 w-7">
+							<AvatarImage src={session.data?.user.image ?? ''} />
+						</Avatar>
+					) : (
+						<>
+							<LogIn className="mr-2" />
+							Sign In
+						</>
+					)}
 
 					{session.data?.user.name}
 				</Button>
