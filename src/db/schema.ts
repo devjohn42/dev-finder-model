@@ -101,13 +101,13 @@ export const authenticators = pgTable(
 )
 
 export const room = pgTable('room', {
-	id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
+	id: uuid('id').default(sql`gen_random_uuid()`).notNull().primaryKey(),
 	userId: text('userId')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	name: text('name').notNull(),
 	description: text('description'),
-	language: text('language'),
+	tags: text('tags'),
 	githubRepo: text('githubRepo')
 })
 
